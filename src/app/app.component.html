@@ -36,6 +36,15 @@
       <p appBasicHighlight>Style me with basic directive!</p>
       <!-- overwriting the color property values -->
       <p [appBetterHighlight]="'red'" defaultColor="yellow">Style me with better directive!</p>
+
+      <p>Show values if onlyOdd is false (~show only even)</p>
+      <div *appUnless="onlyOdd">
+        <li
+          class="list-group-item"
+          *ngFor="let even of evenNumbers">
+          {{even}}
+        </li>
+      </div>
     </div>
   </div>
 </div>
