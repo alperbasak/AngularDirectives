@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostBinding, HostListener, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Renderer2} from '@angular/core';
 
 // ng g(enerate) (d)irective better-highlight
 @Directive({
@@ -6,7 +6,11 @@ import {Directive, ElementRef, HostBinding, HostListener, OnInit, Renderer2} fro
 })
 export class BetterHighlightDirective implements OnInit {
 
-  @HostBinding('style.backgroundColor') backgroundColor = 'transparent';
+  // 4 making the values to be controllable from outside
+  @Input() defaultColor = 'transparent';
+  @Input() highlightColor = 'blue';
+
+  @HostBinding('style.backgroundColor') backgroundColor;
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) {
   }
@@ -16,18 +20,21 @@ export class BetterHighlightDirective implements OnInit {
   ngOnInit(): void {
     // 1 instead of setting the style on init, we want to setStyle on some event such as 'mouseover' and 'mouseleave'
     // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
+
+    // 4 setting the value of backgroundColor onInit, otherwise first value of bgColor can be wrong: '' vs. hlColor from @Input
+    this.backgroundColor = this.defaultColor;
   }
 
   // 2 HostListener to listen to DOM events
   @HostListener('mouseenter') mouseover(eventData: Event): void {
     // 3 Instead of setStyle from Renderer, bind to the property of the element via HostBinding
     // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
-    this.backgroundColor = 'blue';
+    this.backgroundColor = this.highlightColor;
   }
 
   @HostListener('mouseleave') mouseleave(eventData: Event): void {
     // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
-    this.backgroundColor = 'transparent';
+    this.backgroundColor = this.defaultColor;
   }
 
 }
