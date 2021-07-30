@@ -8,7 +8,8 @@ export class BetterHighlightDirective implements OnInit {
 
   // 4 making the values to be controllable from outside
   @Input() defaultColor = 'transparent';
-  @Input() highlightColor = 'blue';
+  // 5 setting the alias as same as the directive selector to use them both at the same time
+  @Input('appBetterHighlight') highlightColor = 'blue';
 
   @HostBinding('style.backgroundColor') backgroundColor;
 

@@ -35,7 +35,7 @@
       <!-- we set the directive selector with [] in the class, so we can simply use here without [] -->
       <p appBasicHighlight>Style me with basic directive!</p>
       <!-- overwriting the color property values -->
-      <p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'pink'">Style me with better directive!</p>
+      <p [appBetterHighlight]="'red'" defaultColor="yellow">Style me with better directive!</p>
     </div>
   </div>
 </div>
